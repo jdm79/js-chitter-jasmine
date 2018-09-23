@@ -1,14 +1,20 @@
 (function(exports) {
+  if(!this.peeps) {
+    document.getElementById('loading').innerHTML = "Loading..."
+  } 
 
   const allPeepsUrl = 'https://chitter-backend-api.herokuapp.com/peeps'
 
   function Chitter() {
     this.peeps = []
   }
+
+  Chitter.prototype.hideLoading = function() {
+    document.getElementById('loading').innerHTML = ""
+  }
+
   this.chitter = new Chitter()
  
-
-  
   Chitter.prototype.getPeeps = function(allPeepsUrl) {
     fetch()
       .then(res => {
@@ -25,7 +31,6 @@
         this.peeps = data
         console.log(this.peeps)
         console.log(data)
-
         return this.peeps
       })
       
@@ -36,7 +41,6 @@
       })
     }
     
-  
   Chitter.prototype.showPeeps = function() {    
     function createNode(element) {
       return document.createElement(element)
@@ -50,23 +54,30 @@
       fetch(allPeepsUrl)
       .then((res) => res.json())
       .then(function(data) {
+        chitter.hideLoading()
+
         let peeps = data
         return peeps.map(function(peep) {
           console.log(peep.body)
           let li = createNode('li')
-          li.innerHTML = `a peep ${peep.body}`
+          li.innerHTML = 
+          `<div id="peep"> 
+            <p>${peep.user.handle}</p>
+            <h2>${peep.body}</h2>
+          </div>`
           append(ul, li)
         })
       })
       .catch(function(error) {
-        console.log(error)
+        if (error.status === 404) {
+          console.log('error is ', error.status, error)
+        }
       })
     }
   
   Chitter.prototype.showIndividualPeep = function() {
     }    
 
-  chitter.getPeeps()
   chitter.showPeeps()
 
 })(this)
