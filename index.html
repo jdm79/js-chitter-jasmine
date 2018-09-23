@@ -12,12 +12,16 @@
   <div id="test"></div>
   <div id="list-items"></div>
   <script >
+ 
   fetch('https://chitter-backend-api.herokuapp.com/peeps')
     .then(res => {
       if (res.ok) {
         return res.json()
       } else {
-        return Promise.reject('something went wrong!')
+        return Promise.reject({
+          status: res.status,
+          statusText: res.statusText
+        })
       }
     })
     .then(data => {
@@ -27,8 +31,13 @@
       document.getElementById('test').innerHTML = data[0].body
       return this.peeps
     })
-    .catch(error => console.log('error is', error))
-  
+    .catch(error => {
+      if (error.status === 404) {
+        // do something about 404
+        console.log('error is ', error.status, error)
+      }
+    })
+
   </script>
 </body>
 </html>
