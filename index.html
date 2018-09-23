@@ -28,7 +28,7 @@
       console.log('data is', data[0].body)
       console.log(data)
       this.peeps = data
-      document.getElementById('test').innerHTML = data[0].body
+      document.getElementById('test').innerHTML = `<h1>${data[0].body}</h1>`
       return this.peeps
     })
     .catch(error => {
