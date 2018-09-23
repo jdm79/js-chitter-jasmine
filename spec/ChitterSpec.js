@@ -1,12 +1,17 @@
-describe("Chitter", function() {
-  beforeEach(function()  {
-    chitter = new Chitter();
-  })
-  
-  it("should be able to show all peeps", function() {
-    chitter = new Chitter();
+'use strict';
 
-    expect(chitter.getPeeps()).toEqual([])
+describe('Chitter', function() {
+  var chitter
+
+  beforeEach(function() {
+    chitter = new Chitter();
+  });
+
+  it('should show all peeps', function() {
+    expect(chitter.showPeeps()).toEqual([])
   })
 
+  it('can post a peep', function() {
+    expect(chitter.postPeep()).toEqual("hello world!")
+  })
 })

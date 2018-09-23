@@ -13,10 +13,10 @@
     document.getElementById('loading').innerHTML = ""
   }
 
-  this.chitter = new Chitter()
+  chitter = new Chitter()
  
   Chitter.prototype.getPeeps = function(allPeepsUrl) {
-    fetch()
+    fetch(allPeepsUrl)
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -74,9 +74,24 @@
         }
       })
     }
+
+  Chitter.prototype.helloWorld = function() {
+    console.log("hello world!")
+  }
+
   
-  Chitter.prototype.showIndividualPeep = function() {
-    }    
+  Chitter.prototype.postPeep = function() {
+    let content = {"peep": {"user_id":232, "body":"from the app"}};
+    // The actual fetch request
+      fetch('https://chitter-backend-api.herokuapp.com/peeps/', {
+        method: 'post',
+        headers: {
+        'Authorization': 'Token token=_2a_10_rJfVnPspFO1QAE5y42uIl_',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(content)
+      })
+    } 
 
   chitter.showPeeps()
 
