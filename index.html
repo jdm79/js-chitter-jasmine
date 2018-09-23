@@ -9,35 +9,10 @@
 </head>
 <body>
   <h1>Hello world!</h1>
+  <button onclick="chitter.getPeeps()">Get Peeps</button>
   <div id="test"></div>
   <div id="list-items"></div>
-  <script >
- 
-  fetch('https://chitter-backend-api.herokuapp.com/peeps')
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject({
-          status: res.status,
-          statusText: res.statusText
-        })
-      }
-    })
-    .then(data => {
-      console.log('data is', data[0].body)
-      console.log(data)
-      this.peeps = data
-      document.getElementById('test').innerHTML = `<h1>${data[0].body}</h1>`
-      return this.peeps
-    })
-    .catch(error => {
-      if (error.status === 404) {
-        // do something about 404
-        console.log('error is ', error.status, error)
-      }
-    })
 
-  </script>
+  <script src="src/Chitter.js"></script>
 </body>
 </html>

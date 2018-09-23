@@ -1,40 +1,42 @@
-function Chitter() {
-  this.peeps = []
-}
-
-Chitter.prototype.getPeeps = function() {
-  fetch('https://chitter-backend-api.herokuapp.com/peeps')
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject('something went wrong!')
-      }
-    })
-    .then(data => {
-      console.log('data is', data)
-      this.peeps = data
-      return this.peeps
-    })
-    .catch(error => console.log('error is', error))
+(function(exports) {
+  function Chitter() {
+    this.peeps = []
   }
-}
+  chitter = new Chitter()
 
-
-Chitter.prototype.showPeeps = function() {
-  var elem = document.getElementById('test')
-  elem.innerHTML = "hello world"
-}
-
-
-  // let content = {"peep": {"user_id":232, "body":"anthony joshua woz here"}};
-
-    // // The actual fetch request
-    // fetch('https://chitter-backend-api.herokuapp.com/peeps/', {
-    //   method: 'put',
-    //   headers: {
-    //     'Authorization': 'Token token=_2a_10_rJfVnPspFO1QAE5y42uIl_',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(content)
-    // })
+  
+  Chitter.prototype.getPeeps = function() {
+    fetch('https://chitter-backend-api.herokuapp.com/peeps')
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          return Promise.reject({
+            status: res.status,
+            statusText: res.statusText
+          })
+        }
+      })
+      .then(data => {
+        console.log(data)
+        this.peeps = data
+        return this.peeps
+      })
+      .catch(error => {
+        if (error.status === 404) {
+          console.log('error is ', error.status, error)
+        }
+      })
+    }
+  
+  Chitter.prototype.showPeeps = function() {
+    Chitter.getPeeps()
+    console.log("this is the showPeeps function", this.peeps)
+    }
+  
+  Chitter.prototype.showIndividualPeep = function() {
+    document.getElementById('test').innerHTML = 
+        `<li>${data[0].body}<p>by ${data[0].id}</p></li>
+        `
+    }    
+})(this)
