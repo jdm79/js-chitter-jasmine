@@ -3,6 +3,7 @@
     document.getElementById('loading').innerHTML = "Loading..."
   } 
 
+  // const TOKEN = require('TOKEN')
   const allPeepsUrl = 'https://chitter-backend-api.herokuapp.com/peeps'
 
   function Chitter() {
@@ -11,6 +12,10 @@
 
   Chitter.prototype.hideLoading = function() {
     document.getElementById('loading').innerHTML = ""
+  }
+
+  Chitter.prototype.testToken = function() {
+    console.log(TOKEN)
   }
 
   chitter = new Chitter()
@@ -86,10 +91,22 @@
       fetch('https://chitter-backend-api.herokuapp.com/peeps/', {
         method: 'post',
         headers: {
-        'Authorization': 'Token token=_2a_10_rJfVnPspFO1QAE5y42uIl_',
+        'Authorization': TOKEN,
         'Content-Type': 'application/json'
         },
         body: JSON.stringify(content)
+      })
+    } 
+
+  Chitter.prototype.likePeep = function() {
+    let content = {"peep": {"user_id":232, "body":"from the app"}};
+    // The actual fetch request
+      fetch('https://chitter-backend-api.herokuapp.com/peeps/32/likes/232', {
+        method: 'put',
+        headers: {
+        'Authorization': TOKEN,
+        'Content-Type': 'application/json'
+        },
       })
     } 
 

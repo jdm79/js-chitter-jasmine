@@ -1,0 +1,27 @@
+{
+  "name": "js-chitter",
+  "version": "1.0.0",
+  "description": "### The Stack",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdm79/js-chitter-jasmine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdm79/js-chitter-jasmine/issues"
+  },
+  "homepage": "https://github.com/jdm79/js-chitter-jasmine#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "dotenv": "^6.0.0"
+  }
+}
